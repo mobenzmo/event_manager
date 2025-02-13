@@ -17,6 +17,12 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# For JSON Web Token Authentication
+gem "jwt"
+# For CORS support (to allow frontend requests)
+gem "rack-cors"
+
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
