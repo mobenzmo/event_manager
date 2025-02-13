@@ -21,7 +21,7 @@
 # Nom du Projet
 
 ## À propos du projet
-
+Mini-Application de Gestion d'Événements
 ---
 
 ## Fonctionnalités
