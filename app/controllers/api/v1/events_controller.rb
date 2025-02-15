@@ -8,7 +8,14 @@ module Api
       # GET /api/v1/events
       def index
         @events = Event.page(params[:page]).per(10)
-        render json: @events
+        render json: {
+          events: @events,
+          meta: {
+            current_page: @events.current_page,
+            total_pages: @events.total_pages,
+            total_count: @events.total_count
+          }
+        }
       end
 
       # GET /api/v1/events/:id
