@@ -1,0 +1,30 @@
+.container.mt-5
+  .row.justify-content-center
+    .col-md-6
+      %div.nav.nav-tabs.mb-4{"role" => "tablist"}
+        %a.nav-link.active{"data-bs-toggle" => "tab", "href" => "#signin", "role" => "tab"} Sign In
+        %a.nav-link{"data-bs-toggle" => "tab", "href" => "#signup", "role" => "tab"} Sign Up
+      .tab-content
+        #signin.tab-pane.fade.show.active{"role" => "tabpanel"}
+          %h3.text-center Sign In
+          %form{"action" => "#", "method" => "post", "id" => "signin-form"}
+            .mb-3
+              %label.form-label Email
+              %input.form-control{"type" => "email", "placeholder" => "Enter email", "name" => "email"}
+            .mb-3
+              %label.form-label Password
+              %input.form-control{"type" => "password", "placeholder" => "Enter password", "name" => "password"}
+            %button.btn.btn-primary.w-100.mt-3 Sign In
+        #signup.tab-pane.fade{"role" => "tabpanel"}
+          %h3.text-center Sign Up
+          %form{"action" => "#", "method" => "post", "id" => "signup-form"}
+            .mb-3
+              %label.form-label Email
+              %input.form-control{"type" => "email", "placeholder" => "Enter email", "name" => "email"}
+            .mb-3
+              %label.form-label Password
+              %input.form-control{"type" => "password", "placeholder" => "Enter password", "name" => "password"}
+            .mb-3
+              %label.form-label Confirm Password
+              %input.form-control{"type" => "password", "placeholder" => "Confirm password", "name" => "password_confirmation"}
+            %button.btn.btn-success.w-100.mt-3 Sign Up
