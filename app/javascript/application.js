@@ -2,10 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-import "bootstrap";
-import "@popperjs/core";
-
-
 document.addEventListener("DOMContentLoaded", function() {
   var triggerTabList = [].slice.call(document.querySelectorAll('.nav-link'))
   triggerTabList.forEach(function(triggerEl) {
