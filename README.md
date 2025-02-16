@@ -74,9 +74,9 @@ Je n'ai pas du tout fait la partie frontend et j'ai passé beaucoup de temps à 
 
 Ce choix de prioriser l'API présente plusieurs avantages. D'abord, il démontre ma capacité à créer un backend robuste, sécurisé et évolutif, ce qui est essentiel dans des contextes où la scalabilité des architectures est cruciale. Cela permet également d'envisager l'API comme un microservice indépendant, réutilisable dans différents contextes (web, mobile, etc.), offrant ainsi une grande flexibilité.
 
-Néanmoins, ce choix a pour inconvénient de ne pas montrer mes compétences en frontend dans ce projet en particulier. Toutefois, vu les exigences du poste, j'ai estimé qu'il était plus pertinent de me concentrer sur la qualité de l'API plutôt que de produire un frontend superficiel par manque de temps. J'ai préféré prouver ma capacité à concevoir une architecture modulaire et scalable, en adéquation avec les besoins du poste.  
+Néanmoins, ce choix a pour inconvénient de ne pas montrer mes compétences en frontend dans ce projet en particulier. Toutefois, vu les exigences du poste, j'ai estimé qu'il était plus pertinent de me concentrer sur la qualité de l'API plutôt que de produire un frontend mal agencé par manque de temps. J'ai préféré prouver ma capacité à concevoir une architecture modulaire et scalable, en adéquation avec les besoins du poste.  
 
-En me concentrant sur l'API, j'ai donc pu créer un microservice indépendant permettant diverses utilisations. Cette approche démontre ma vision à long terme sur la maintenabilité et l'évolutivité des applications complexes. 
+En me concentrant sur l'API, j'ai donc pu créer un microservice indépendant permettant diverses utilisations. Cette approche démontre ma vision à long terme sur la maintenabilité et l'évolutivité des applications complexes comme par exemple l'application EPS ou l'application de caisse que vous développez.
 
 ---
 
