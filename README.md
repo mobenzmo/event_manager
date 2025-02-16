@@ -9,14 +9,26 @@ Cette mini-application Ruby on Rails permet de gérer des événements.
 ---
 
 ## Fonctionnalités
-- **CRUD des événements** : Création, lecture, mise à jour et suppression des événements.
-- **Authentification utilisateur** avec Devise.
-- **Accès sécurisé** : Seuls les utilisateurs authentifiés peuvent gérer leurs propres événements.
-- **Visibilité des événements** : Tous les événements sont publics en lecture seule.
-- **Pagination** : Affichage des événements par lot de 10.
-- **API REST** : RESTful API.
-- **Authentification par token (JWT)** pour l'API.
-- **Indexation des clés étrangères** pour améliorer les performances.
+
+L'ensemble de ces focntionnalités est réalisé **UNIQUEMENT EN API**
+
+| Fonctionnalité                                                            | Statut     |
+|---------------------------------------------------------------------------|------------|
+| Initialisation de l'application Rails avec PostgreSQL                     | ✅ Fait     |
+| Modèle User avec email et password_digest via Devise                      | ✅ Fait     |
+| Modèle Event avec title, description, date, location et user_id            | ✅ Fait     |
+| Validations sur les champs (titre obligatoire, date future, description min 10 caractères) | ✅ Fait     |
+| CRUD complet pour les événements                                          | ✅ Fait     |
+| Accès restreint (un utilisateur ne peut modifier que ses propres événements) | ✅ Fait     |
+| Authentification utilisateur avec Devise                                  | ✅ Fait     |
+| Accès sécurisé : seuls les utilisateurs authentifiés peuvent gérer leurs événements | ✅ Fait     |
+| Visibilité des événements : lecture publique pour tous                    | ✅ Fait     |
+| Pagination (Affichage des événements par lot de 10)                       | ✅ Fait     |
+| API REST : Endpoints GET, POST, PUT, DELETE pour les événements            | ✅ Fait    |
+| Authentification par token (JWT) pour l'API                               | ✅ Fait    |
+| Indexation des clés étrangères                                            | ✅ Fait    |
+| Optimisation des N+1 queries avec Bullet                                  | ❌ Pas fait |
+| Respect des bonnes pratiques de Rails MVC                                 | ✅ Fait     |
 
 ---
 
