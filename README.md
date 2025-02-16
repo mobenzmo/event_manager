@@ -146,6 +146,7 @@ J'ai testé tous les endpoints de l'API en utilisant **Postman** afin de m'assur
 - Le bon fonctionnement de l'authentification par **JWT**.
 
 Les collections de requêtes Postman sont dans le répertoire ./ et elles servent à reproduire les tests en les important directement à postman pour accélérer les tests:
+
 ![collections requetes postman](postman.png)
 
 
