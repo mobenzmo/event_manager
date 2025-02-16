@@ -3,7 +3,6 @@ module Api
     class EventsController < ApplicationController
       before_action :authorize_request, except: [:index, :show]
       before_action :set_event, only: [:show, :update, :destroy]
-      before_action :authenticate_user!, except: [:index, :show]
       before_action :authorize_user!, only: [:update, :destroy]
 
       # GET /api/v1/events
@@ -49,7 +48,6 @@ module Api
         head :no_content
       end
 
-
       private
 
       def set_event
@@ -58,7 +56,7 @@ module Api
       end
 
       def authorize_user!
-        unless @event.user == current_user
+        unless @event.user == @current_user
           render json: { error: "Unauthorized" }, status: :unauthorized
         end
       end
