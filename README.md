@@ -1,20 +1,5 @@
 # Mini-Application de Gestion d'Événements
 
-## Table des Matières
-- [À propos du projet](#à-propos-du-projet)
-- [Fonctionnalités](#fonctionnalités)
-- [Pile Technologique](#pile-technologique)
-- [Architecture](#architecture)
-- [Schéma de Base de Données](#schéma-de-base-de-données)
-- [Approche de Développement](#approche-de-développement)
-- [Installation et Configuration](#installation-et-configuration)
-- [Utilisation](#utilisation)
-- [Documentation de l'API](#documentation-de-lapi)
-- [Tests](#tests)
-- [Déploiement](#déploiement)
-- [Défis et Solutions](#défis-et-solutions)
-- [Améliorations Futures](#améliorations-futures)
-- [Contribuer](#contribuer)
 
 ---
 
@@ -29,13 +14,8 @@ Cette mini-application Ruby on Rails permet de gérer des événements.
 - **Accès sécurisé** : Seuls les utilisateurs authentifiés peuvent gérer leurs propres événements.
 - **Visibilité des événements** : Tous les événements sont publics en lecture seule.
 - **Pagination** : Affichage des événements par lot de 10.
-- **API REST** :
-  - `GET /api/events` : Liste des événements paginée.
-  - `POST /api/events` : Création d’un événement (authentifié).
-  - `PUT /api/events/:id` : Modification d’un événement (authentifié et propriétaire).
-  - `DELETE /api/events/:id` : Suppression d’un événement (authentifié et propriétaire).
+- **API REST** : RESTful API.
 - **Authentification par token (JWT)** pour l'API.
-- **Optimisation des requêtes** avec Bullet pour détecter les N+1 queries.
 - **Indexation des clés étrangères** pour améliorer les performances.
 
 ---
@@ -61,11 +41,29 @@ L'application suit l'architecture MVC classique de Ruby on Rails :
 ---
 
 ## Schéma de Base de Données
-
+Vu que la BDD est relationnelle et ne contient que deux tables, il est inutile d'en produire un schéma.
 ---
 
 ## Approche de Développement
+Dès la première lecture du test, j'ai analysé les différentes fonctionnalités à implémenter et j'ai établi un ordre de priorité pour le développement. Par exemple, j'ai d'abord donné la priorité à l'authentification utilisateur avec Devise, car elle conditionnait l'accès aux autres fonctionnalités comme la création et la modification des événements.
 
+Pour mieux organiser les vues, j'ai réalisé un croquis rapide des pages principales, notamment :
+- La page d'authentification et d'inscription, avec des champs pour l'email et le mot de passe.
+- La page listant les événements avec une pagination par lot de 10, chaque événement étant affiché sous forme de carte avec son titre, sa date et son lieu.
+- La popup de détails d'un événement, permettant de le modifier ou le supprimer si l'utilisateur en est le propriétaire.
+  
+Ce croquis m'a permis de visualiser les différents composants et de mieux anticiper leur intégration lors du développement.
+
+Après avoir lu l'énoncé, j'ai décidé de partir sur une architecture avec une API REST afin de séparer le back-end et le front-end, ce qui offre une meilleure scalabilité et facilite d'éventuelles évolutions. J'ai donc commencé par développer cette API en utilisant les conventions REST de Rails, notamment mais pas que (beaucoup plus détaillé dans la section API) :
+- `GET /api/v1/events` pour récupérer la liste des événements de manière paginée.
+- `POST /api/v1/events` pour permettre aux utilisateurs authentifiés de créer un événement.
+- `PUT /api/v1/events/:id` pour mettre à jour un événement, avec une vérification de l'utilisateur propriétaire.
+- `DELETE /api/v1/events/:id` pour supprimer un événement, également sécurisé par la vérification du propriétaire.
+
+L'intégration des différentes contraintes techniques (comme les validations sur les champs) et fonctionnelles (comme la visibilité des événements pour tous les utilisateurs en lecture seule) s'est avérée relativement simple grâce aux fonctionnalités natives de Rails. 
+
+Enfin, voici le croquis initial qui m'a aidé à structurer l'application :
+![dessin de vues](dessin.jpg)
 ---
 
 ## Installation et Configuration
@@ -80,62 +78,32 @@ Assurez-vous d'avoir les éléments suivants installés sur votre machine :
 ### Étapes d'installation
 
 1. **Clonez le dépôt**
-   ```bash
-   git clone <URL_DU_REPO>
-   cd <NOM_DU_REPO>
-   ```
-
 2. **Installez les dépendances**
    ```bash
    bundle install
    yarn install
    ```
 
-3. **Configuration de la base de données**
-   - Créez un fichier `config/database.yml` en vous basant sur le fichier `config/database.example.yml`.
-   - Mettez à jour les informations de connexion à PostgreSQL (nom d'utilisateur, mot de passe, nom de la base).
-
-4. **Initialisez la base de données**
+3. **Initialisez la base de données**
    ```bash
    rails db:create
    rails db:migrate
    rails db:seed
    ```
 
-5. **Configuration des variables d'environnement**
-   - Créez un fichier `.env` à la racine du projet.
-   - Ajoutez les clés suivantes :
-     ```env
-     DATABASE_USERNAME=<votre_nom_utilisateur_pg>
-     DATABASE_PASSWORD=<votre_mot_de_passe_pg>
-     JWT_SECRET_KEY=<votre_cle_secrete_jwt>
-     ```
-
-6. **Lancez le serveur**
+4. **Lancez le serveur**
    ```bash
    rails s
    ```
 
-7. **Accédez à l'application**
+5. **Accédez à l'application**
    Ouvrez votre navigateur et rendez-vous sur : `http://localhost:3000`
 
-### Commandes Utiles
-- **Lancer les tests** :
-  ```bash
-  rspec
-  ```
-- **Vérifier les erreurs N+1 avec Bullet** :
-  Bullet est déjà configuré en mode développement pour alerter en cas de requêtes N+1.
-
 ### Notes
-- Cette application utilise Devise pour l'authentification et JWT pour les API.
 - Assurez-vous que PostgreSQL est en cours d'exécution avant de démarrer l'application.
 
 ---
 
-## Utilisation
-
----
 
 ## Documentation de l'API : Endpoints de l'API
 
@@ -156,8 +124,15 @@ Assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
 ---
 
-## Défis et Solutions
+### Tests des Endpoints
+J'ai testé tous les endpoints de l'API en utilisant **Postman** afin de m'assurer de leur bon fonctionnement et de vérifier :
+- La validité des réponses HTTP (200, 201, 401, 404, etc.).
+- La gestion des permissions (accès limité aux utilisateurs authentifiés).
+- La pagination pour l'affichage des événements.
+- Le bon fonctionnement de l'authentification par **JWT**.
 
+Les collections de requêtes Postman peuvent être fournies sur demande pour reproduire les tests:
+![collections requetes postman](postman.png)
 ---
 
 ## Améliorations Futures
