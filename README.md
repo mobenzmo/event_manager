@@ -6,7 +6,7 @@
 ## À propos du projet
 Cette mini-application Ruby on Rails permet de gérer des événements.
 
----
+
 
 ## Fonctionnalités
 
@@ -30,15 +30,14 @@ L'ensemble de ces focntionnalités est réalisé **UNIQUEMENT EN API**
 | Optimisation des N+1 queries avec Bullet                                  | ❌ Pas fait |
 | Respect des bonnes pratiques de Rails MVC                                 | ✅ Fait     |
 
----
+
 
 ## Pile Technologique
 - **Framework** : Ruby on Rails
 - **Base de données** : PostgreSQL
 - **Authentification** : Devise et JWT (via `jwt` gem)
-- **Front-end** : ERB avec Tailwind CSS pour le style
+- **Front-end** : ERB/HAML
 - **API** : RESTful
-- **Outils d'optimisation** : Bullet pour la détection des N+1 queries
 - **Pagination** : Utilisation de `kaminari`
 
 ---
@@ -46,35 +45,39 @@ L'ensemble de ces focntionnalités est réalisé **UNIQUEMENT EN API**
 ## Architecture
 L'application suit l'architecture MVC classique de Ruby on Rails :
 - **Modèles** : User, Event
-- **Vues** : ERB pour l'interface utilisateur
+- **Vues** : ERB/HAML pour l'interface utilisateur
 - **Contrôleurs** : Gestion des actions CRUD et des endpoints API
-
----
 
 ## Schéma de Base de Données
 Vu que la BDD est relationnelle et ne contient que deux tables, il est inutile d'en produire un schéma.
----
 
-## Approche de Développement
-Dès la première lecture du test, j'ai analysé les différentes fonctionnalités à implémenter et j'ai établi un ordre de priorité pour le développement. Par exemple, j'ai d'abord donné la priorité à l'authentification utilisateur avec Devise, car elle conditionnait l'accès aux autres fonctionnalités comme la création et la modification des événements.
 
-Pour mieux organiser les vues, j'ai réalisé un croquis rapide des pages principales, notamment :
-- La page d'authentification et d'inscription, avec des champs pour l'email et le mot de passe.
-- La page listant les événements avec une pagination par lot de 10, chaque événement étant affiché sous forme de carte avec son titre, sa date et son lieu.
-- La popup de détails d'un événement, permettant de le modifier ou le supprimer si l'utilisateur en est le propriétaire.
-  
-Ce croquis m'a permis de visualiser les différents composants et de mieux anticiper leur intégration lors du développement.
+## Approche de Développement  
+Dès la première lecture du test, j'ai analysé les différentes fonctionnalités à implémenter et j'ai établi un ordre de priorité pour le développement. Par exemple, j'ai d'abord donné la priorité à l'authentification utilisateur avec Devise, car elle conditionnait l'accès aux autres fonctionnalités comme la création et la modification des événements.  
 
-Après avoir lu l'énoncé, j'ai décidé de partir sur une architecture avec une API REST afin de séparer le back-end et le front-end, ce qui offre une meilleure scalabilité et facilite d'éventuelles évolutions. J'ai donc commencé par développer cette API en utilisant les conventions REST de Rails, notamment mais pas que (beaucoup plus détaillé dans la section API) :
-- `GET /api/v1/events` pour récupérer la liste des événements de manière paginée.
-- `POST /api/v1/events` pour permettre aux utilisateurs authentifiés de créer un événement.
-- `PUT /api/v1/events/:id` pour mettre à jour un événement, avec une vérification de l'utilisateur propriétaire.
-- `DELETE /api/v1/events/:id` pour supprimer un événement, également sécurisé par la vérification du propriétaire.
-
-L'intégration des différentes contraintes techniques (comme les validations sur les champs) et fonctionnelles (comme la visibilité des événements pour tous les utilisateurs en lecture seule) s'est avérée relativement simple grâce aux fonctionnalités natives de Rails. 
-
-Enfin, voici le croquis initial qui m'a aidé à structurer l'application :
+Pour mieux organiser les vues, j'ai réalisé un croquis rapide des pages principales, notamment :  
+- La page d'authentification et d'inscription, avec des champs pour l'email et le mot de passe.  
+- La page listant les événements avec une pagination par lot de 10, chaque événement étant affiché sous forme de carte avec son titre, sa date et son lieu.  
+- La popup de détails d'un événement, permettant de le modifier ou le supprimer si l'utilisateur en est le propriétaire.  
 ![dessin de vues](dessin.jpg)
+Ce croquis m'a permis de visualiser les différents composants et de mieux anticiper leur intégration lors du développement.  
+
+Une API REST permet de séparer le back-end et le front-end, ce qui offre une meilleure scalabilité et facilite d'éventuelles évolutions. J'ai donc commencé par développer cette API en utilisant les conventions REST de Rails, notamment mais pas que (beaucoup plus détaillé dans la section API) :  
+- `GET /api/v1/events` pour récupérer la liste des événements de manière paginée.  
+- `POST /api/v1/events` pour permettre aux utilisateurs authentifiés de créer un événement.  
+- `PUT /api/v1/events/:id` pour mettre à jour un événement, avec une vérification de l'utilisateur propriétaire.  
+- `DELETE /api/v1/events/:id` pour supprimer un événement, également sécurisé par la vérification du propriétaire.  
+
+L'intégration des différentes contraintes techniques (comme les validations sur les champs) et fonctionnelles (comme la visibilité des événements pour tous les utilisateurs en lecture seule) s'est avérée relativement simple grâce aux fonctionnalités natives de Rails.  
+
+Je n'ai pas du tout fait la partie frontend et j'ai passé beaucoup de temps à peaufiner les API endpoints. Je n'ai pas pu commencer le frontend car j'ai dépassé la durée attribuée (4 heures au total sur plusieurs sessions de programmation sur la partie API, le frontend nécessite également 4 heures pour un rendu propre). Le travail et le poste demandé requièrent énormément de lecture de code et d'émigration de la version 4 de Rails à la version 7/8. Le plus important pour moi était de montrer que je peux faire une API solide qui répond aux besoins en termes de sécurité et de fiabilité. Avec plus de temps, je pourrais créer une application adjacente qui utiliserait les endpoints pour devenir l'Event Manager complet.  
+
+Ce choix de prioriser l'API présente plusieurs avantages. D'abord, il démontre ma capacité à créer un backend robuste, sécurisé et évolutif, ce qui est essentiel dans des contextes où la scalabilité des architectures est cruciale. Cela permet également d'envisager l'API comme un microservice indépendant, réutilisable dans différents contextes (web, mobile, etc.), offrant ainsi une grande flexibilité.
+
+Néanmoins, ce choix a pour inconvénient de ne pas montrer mes compétences en frontend dans ce projet en particulier. Toutefois, vu les exigences du poste, j'ai estimé qu'il était plus pertinent de me concentrer sur la qualité de l'API plutôt que de produire un frontend superficiel par manque de temps. J'ai préféré prouver ma capacité à concevoir une architecture modulaire et scalable, en adéquation avec les besoins du poste.  
+
+En me concentrant sur l'API, j'ai donc pu créer un microservice indépendant permettant diverses utilisations. Cette approche démontre ma vision à long terme sur la maintenabilité et l'évolutivité des applications complexes. 
+
 ---
 
 ## Installation et Configuration
@@ -142,11 +145,7 @@ J'ai testé tous les endpoints de l'API en utilisant **Postman** afin de m'assur
 - La pagination pour l'affichage des événements.
 - Le bon fonctionnement de l'authentification par **JWT**.
 
-Les collections de requêtes Postman peuvent être fournies sur demande pour reproduire les tests:
+Les collections de requêtes Postman sont dans le répertoire ./ et elles servent à reproduire les tests en les important directement à postman pour accélérer les tests:
 ![collections requetes postman](postman.png)
----
 
-## Améliorations Futures
-
----
 
