@@ -1,0 +1,46 @@
+<h1>Événements</h1>
+
+<div id="events-container">
+  <%# Les événements seront affichés ici %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const eventsContainer = document.getElementById('events-container');
+
+    function loadEvents() {
+      const token = localStorage.getItem('jwt_token'); // Récupérer le token JWT
+
+      fetch('/api/v1/events', {
+        headers: {
+          'Authorization': `Bearer ${token}` // Inclure le token dans l'en-tête
+        }
+      })
+      .then(response => {
+        if (!response.ok) { // Vérifier si la réponse est OK (statut 2xx)
+          throw new Error(`HTTP error! status: ${response.status}`); // Jeter une erreur si non OK
+        }
+        return response.json(); // Retourner la réponse JSON si OK
+      })
+      .then(data => {
+        eventsContainer.innerHTML = ''; // Effacer les anciens événements
+
+        data.forEach(event => {
+          const eventDiv = document.createElement('div');
+          eventDiv.innerHTML = `<h3>${event.title}</h3><p>${event.description}</p>`;
+          eventsContainer.appendChild(eventDiv);
+        });
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+        if (error.message.includes('401')) { // Si erreur d'authentification
+           alert("Votre session a expiré. Veuillez vous reconnecter.");
+           localStorage.removeItem('jwt_token'); // Supprimer le token
+           window.location.href = '/'; // Rediriger vers la page de connexion
+        }
+      });
+    }
+
+    loadEvents(); // Charger les événements au chargement de la page
+  });
+</script>

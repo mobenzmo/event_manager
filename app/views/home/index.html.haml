@@ -7,7 +7,7 @@
       .tab-content
         #signin.tab-pane.fade.show.active{"role" => "tabpanel"}
           %h3.text-center Sign In
-          %form{"action" => "#", "method" => "post", "id" => "signin-form"}
+          %form{"action" => "/api/v1/auth/login", "method" => "post", "id" => "signin-form"}
             .mb-3
               %label.form-label Email
               %input.form-control{"type" => "email", "placeholder" => "Enter email", "name" => "email"}
@@ -17,7 +17,7 @@
             %button.btn.btn-primary.w-100.mt-3 Sign In
         #signup.tab-pane.fade{"role" => "tabpanel"}
           %h3.text-center Sign Up
-          %form{"action" => "#", "method" => "post", "id" => "signup-form"}
+          %form{"action" => "/api/v1/users", "method" => "post", "id" => "signup-form"}
             .mb-3
               %label.form-label Email
               %input.form-control{"type" => "email", "placeholder" => "Enter email", "name" => "email"}

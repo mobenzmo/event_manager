@@ -28,7 +28,6 @@ Cette mini-application Ruby on Rails permet de gérer des événements.
 - **API** : RESTful
 - **Outils d'optimisation** : Bullet pour la détection des N+1 queries
 - **Pagination** : Utilisation de `kaminari`
-- **Tests** : RSpec pour les tests unitaires et d'intégration
 
 ---
 
